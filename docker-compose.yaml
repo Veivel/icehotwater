@@ -4,7 +4,7 @@ services:
   marketplace:
     build: .
     ports:
-      - "8000:8000"
+      - "8888:8000"
     environment:
       - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
       - JWT_SECRET=auth_ms_jwt_secret
@@ -12,7 +12,7 @@ services:
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres
-      - DB_NAME=marketplace
+      - DB_NAME=postgres
     depends_on:
       - db
 
