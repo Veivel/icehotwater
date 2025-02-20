@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { UnauthenticatedResponse } from "../commons/patterns/exceptions";
-import { verifyAdminTokenService } from "@src/auth/services";
+import { verifyAdminTokenService } from "../../../1-auth/src/user/services";
 import { getTenantService } from "@src/tenant/services";
 
 export const verifyJWTProduct = async (

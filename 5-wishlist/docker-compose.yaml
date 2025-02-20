@@ -1,0 +1,29 @@
+services:
+  service-wishlist:
+    build: .
+    ports:
+      - "8885:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=db-wishlist
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=marketplace
+    depends_on:
+      - db-wishlist
+
+  db-wishlist:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: marketplace
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5445:5432"
+    volumes:
+      - wishlist-data:/var/lib/postgresql/data
+
+volumes:
+  wishlist-data:

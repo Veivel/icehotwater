@@ -17,16 +17,26 @@ REST API for a marketplace application built with Express.js, PostgreSQL, and Dr
 # Clone the repository
 git clone <repository-url>
 
-# Copy environment file
-cp .env.example .env
+# Start each Service with Docker Compose
+cd <service> && docker compose up -d
+```
 
-# Start with Docker Compose
+## Alternative Flow
+
+```bash
+# Clone the repository
+git clone <repository-url>
+
+# Start all 5 services at once
 docker compose up
 ```
 
 ## Local Development Setup
 
 ```bash
+# You need to repeat the steps below for each service
+cd <service>
+
 # Install dependencies
 pnpm install
 
@@ -34,6 +44,10 @@ pnpm install
 pnpm run generate # Generate migrations
 
 pnpm run migrate # Run migrations
+
+# If you are having issues with migrate, run the database first
+# don't forget to docker compose down
+docker compose up db-<service>
 
 # Start development server
 pnpm dev

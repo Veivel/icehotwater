@@ -1,0 +1,32 @@
+services:
+  service-order:
+    build: .
+    ports:
+      - "8882:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - AUTH_MS_URL=http://192.168.1.5:8881
+      - PRODUCT_MS_URL=http://192.168.1.5:8883
+      - WISHLIST_MS_URL=http://192.168.1.5:8885
+      - DB_HOST=db-order
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=marketplace
+    depends_on:
+      - db-order
+
+  db-order:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: marketplace
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5442:5432"
+    volumes:
+      - order-data:/var/lib/postgresql/data
+
+volumes:
+  order-data:
