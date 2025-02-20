@@ -5,3 +5,8 @@ npm-debug.log
 .env
 .DS_Store
 dist
+
+notes.md
+testing.md
+testing.txt
+testing.csv
