@@ -1,8 +1,28 @@
-# Marketplace API
+# aaw-marketplace
 
-## Overview
+Givarrel Veivel's Assignment 01 for AAW class.
 
-REST API for a marketplace application built with Express.js, PostgreSQL, and Drizzle ORM.
+## List of Microservices
+
+Services:
+```sh
+service-auth @ localhost:8881
+service-order @ localhost:8882
+service-product @ localhost:8883
+service-tenant @ localhost:8884
+service-wishlist @ localhost:8885
+```
+
+Corresponding databases:
+```sh
+db-auth @ localhost:5441
+db-order @ localhost:5442
+db-product @ localhost:5443
+db-tenant @ localhost:5444
+db-wishlist @ localhost:5445
+```
+
+To test out each service's API, feel free to import the API collection `./Insomnia_2025-02-20.json`.
 
 ## Prerequisites
 
@@ -56,19 +76,28 @@ pnpm dev
 
 ## Environment Variables
 
-Copy .env.example to .env and configure:
+When using docker compose, the microservice URLs `http://192.168.2.156:<port>`
+need to be changed depending on your host machine's local IP. (e.g. `http://192.168.1.4:<port>`, etc). Change these in each service's `docker-compose.yaml` files.
 
-```
+When *not* using docker, copy `.env.example` to `./<service>/.env` and configure:
+
+```conf
 TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+ADMIN_TENANT_ID=xxx
 JWT_SECRET=auth_ms_jwt_secret
+ADMIN_JWT_SECRET=xxx
+AUTH_MS_URL=http://localhost:8881
+ORDER_MS_URL=http://localhost:8882
+PRODUCT_MS_URL=http://localhost:8883
+TENANT_MS_URL=http://localhost:8883
+WISHLIST_MS_URL=http://localhost:8885
 DB_HOST=localhost
 DB_PORT=5432
 DB_USER=postgres
 DB_PASSWORD=postgres
-DB_NAME=postgres
+DB_NAME=marketplace
 PORT=8000
 NODE_ENV=development
-
 ```
 
 ## Available Scripts
@@ -80,22 +109,3 @@ pnpm start # Start production server
 pnpm generate # Generate DB migrations
 pnpm migrate # Run DB migrations
 ```
-
-## API Endpoints
-
-Base URL: http://localhost:8000
-
-## Core endpoints
-
-```
-GET /health - Health check
-GET / - API information
-GET /api/product - List products
-POST /api/auth - Authentication
-GET /api/order - Orders
-GET /api/cart - Shopping cart
-```
-
-## Database Schema
-
-Managed through Drizzle ORM with migrations in drizzle directory.

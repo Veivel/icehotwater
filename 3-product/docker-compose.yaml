@@ -6,12 +6,15 @@ services:
     environment:
       # THIS ONE BELOW IS VERY IMPORTANT
       - TENANT_ID=814924fe-da14-44c9-8fe2-81536344527a
-      ####
-      - JWT_SECRET=auth_ms_jwt_secret
+      # 
       - ADMIN_TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
       - ADMIN_JWT_SECRET=admin_auth_ms_jwt_secret
-      - AUTH_MS_URL=http://192.168.1.5:8881
-      - TENANT_MS_URL=http://192.168.1.5:8884
+      - AUTH_MS_URL=http://192.168.2.156:8881
+      - ORDER_MS_URL=http://192.168.2.156:8882
+      - PRODUCT_MS_URL=http://192.168.2.156:8883
+      - TENANT_MS_URL=http://192.168.2.156:8883
+      - WISHLIST_MS_URL=http://192.168.2.156:8885
       - DB_HOST=db-product
       - DB_PORT=5432
       - DB_USER=postgres
