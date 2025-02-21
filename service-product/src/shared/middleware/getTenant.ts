@@ -16,12 +16,12 @@ export async function getTenant(tenant_id: string, admin_token: string): Promise
         });
         if (res.status >= 400) {
           console.log(res.data);
-          throw Error("something went wrong")
+          throw Error(`Something went wrong. Response status: ${res.status} ${res.statusText}`)
         }
-        console.log("awooga success")
+        console.log("tenant: success")
         return res;
       } catch(e) {
-        console.log("awooga fail")
+        console.log("tenant: fail")
         console.log(e)
         throw e
       }

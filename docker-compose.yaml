@@ -1,6 +1,6 @@
 include:
-  - 1-auth/docker-compose.yaml
-  - 2-order/docker-compose.yaml
-  - 3-product/docker-compose.yaml
-  - 4-tenant/docker-compose.yaml
-  - 5-wishlist/docker-compose.yaml
+  - service-auth/docker-compose.yaml
+  - service-order/docker-compose.yaml
+  - service-product/docker-compose.yaml
+  - service-tenant/docker-compose.yaml
+  - service-wishlist/docker-compose.yaml

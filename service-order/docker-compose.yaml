@@ -1,8 +1,8 @@
 services:
-  service-auth:
+  service-order:
     build: .
     ports:
-      - "8881:8000"
+      - "8882:8000"
     environment:
       - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
       - ADMIN_TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
@@ -11,26 +11,26 @@ services:
       - AUTH_MS_URL=http://192.168.2.156:8881
       - ORDER_MS_URL=http://192.168.2.156:8882
       - PRODUCT_MS_URL=http://192.168.2.156:8883
-      - TENANT_MS_URL=http://192.168.2.156:8883
+      - TENANT_MS_URL=http://192.168.2.156:8884
       - WISHLIST_MS_URL=http://192.168.2.156:8885
-      - DB_HOST=db-auth
+      - DB_HOST=db-order
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=marketplace
     depends_on:
-      - db-auth
+      - db-order
 
-  db-auth:
+  db-order:
     image: postgres:17-alpine
     environment:
       POSTGRES_DB: marketplace
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5441:5432"
+      - "5442:5432"
     volumes:
-      - auth-data:/var/lib/postgresql/data
+      - order-data:/var/lib/postgresql/data
 
 volumes:
-  auth-data:
+  order-data:

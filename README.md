@@ -82,7 +82,7 @@ need to be changed depending on your host machine's local IP. (e.g. `http://192.
 When *not* using docker, copy `.env.example` to `./<service>/.env` and configure:
 
 ```conf
-TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+ADMIN_TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
 ADMIN_TENANT_ID=xxx
 JWT_SECRET=auth_ms_jwt_secret
 ADMIN_JWT_SECRET=xxx

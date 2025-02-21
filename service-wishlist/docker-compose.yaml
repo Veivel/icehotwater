@@ -1,38 +1,36 @@
 services:
-  service-product:
+  service-wishlist:
     build: .
     ports:
-      - "8883:8000"
+      - "8885:8000"
     environment:
-      # THIS ONE BELOW IS VERY IMPORTANT
-      - TENANT_ID=814924fe-da14-44c9-8fe2-81536344527a
-      # 
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
       - ADMIN_TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
       - JWT_SECRET=auth_ms_jwt_secret
       - ADMIN_JWT_SECRET=admin_auth_ms_jwt_secret
       - AUTH_MS_URL=http://192.168.2.156:8881
       - ORDER_MS_URL=http://192.168.2.156:8882
       - PRODUCT_MS_URL=http://192.168.2.156:8883
-      - TENANT_MS_URL=http://192.168.2.156:8883
+      - TENANT_MS_URL=http://192.168.2.156:8884
       - WISHLIST_MS_URL=http://192.168.2.156:8885
-      - DB_HOST=db-product
+      - DB_HOST=db-wishlist
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=marketplace
     depends_on:
-      - db-product
+      - db-wishlist
 
-  db-product:
+  db-wishlist:
     image: postgres:17-alpine
     environment:
       POSTGRES_DB: marketplace
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5443:5432"
+      - "5445:5432"
     volumes:
-      - product-data:/var/lib/postgresql/data
+      - wishlist-data:/var/lib/postgresql/data
 
 volumes:
-  product-data:
+  wishlist-data:
