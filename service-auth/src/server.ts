@@ -10,6 +10,10 @@ import routes from "./user/user.routes"
 
 const app: Express = express();
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 // Prometheus metrics middleware
 const metricsMiddleware = express_prom_bundle({
   includeMethod: true,

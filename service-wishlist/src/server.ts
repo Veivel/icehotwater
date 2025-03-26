@@ -27,6 +27,10 @@ app.use(metricsMiddleware);
 app.use(cors());
 app.use(express.json());
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use('/api/wishlist', wishlistRoutes);
 
 // Health check endpoint

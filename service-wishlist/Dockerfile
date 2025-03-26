@@ -3,6 +3,7 @@ FROM node:18.18.2 AS builder
 WORKDIR /marketplace
 
 COPY package.json ./
+COPY swagger.json ./
 
 # Install pnpm
 RUN npm install -g pnpm typescript
@@ -26,6 +27,7 @@ WORKDIR /marketplace
 
 COPY --from=builder /marketplace/dist ./dist
 COPY --from=builder /marketplace/package.json ./package.json
+COPY --from=builder /marketplace/swagger.json ./dist/swagger.json
 
 RUN npm install --only=production --omit=dev
 
