@@ -28,9 +28,23 @@ export const payOrderHandler = async (req: Request, res: Response) => {
     return res.status(response.status).send(response.data);
 }
 
+export const payOrderHandlerV2 = async (req: Request, res: Response) => {
+    const { orderId } = req.params;
+    const { payment_method, payment_reference, amount } = req.body;
+    const response = await Service.payOrderService(orderId, payment_method, payment_reference, amount);
+    return res.status(response.status).send(response.data);
+}
+
 export const cancelOrderHandler = async (req: Request, res: Response) => {
     const { orderId } = req.params;
     const { user } = req.body;
     const response = await Service.cancelOrderService(user, orderId);
+    return res.status(response.status).send(response.data);
+}
+
+export const cancelOrderHandlerV2 = async (req: Request, res: Response) => {
+    const { orderId } = req.params;
+    const { user } = req.body;
+    const response = await Service.cancelOrderServiceV2(user, orderId);
     return res.status(response.status).send(response.data);
 }

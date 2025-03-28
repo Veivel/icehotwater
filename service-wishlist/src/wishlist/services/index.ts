@@ -1,5 +1,6 @@
 export * from './getAllUserWishlist.service';
 export * from './getWishlistById.service';
+export * from './v2.getWishlistById.service';
 export * from './createWishlist.service';
 export * from './updateWishlist.service';
 export * from './deleteWishlist.service';

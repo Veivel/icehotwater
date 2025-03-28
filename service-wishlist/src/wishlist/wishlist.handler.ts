@@ -14,6 +14,13 @@ export const getWishlistByIdHandler = async (req: Request, res: Response) => {
     return res.status(response.status).send(response.data);
 }
 
+export const getWishlistByIdHandlerV2 = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { user } = req.body;
+    const response = await Service.getWishlistByIdServiceV2(id, user);
+    return res.status(response.status).send(response.data);
+}
+
 export const createWishlistHandler = async (req: Request, res: Response) => {
     const { user, name } = req.body;
     const response = await Service.createWishlistService(user, name);

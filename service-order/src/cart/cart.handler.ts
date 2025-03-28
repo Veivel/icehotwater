@@ -27,3 +27,10 @@ export const deleteCartItemHandler = async (req: Request, res: Response) => {
     const response = await Service.deleteCartItemService(user, product_id);
     return res.status(response.status).send(response.data);
 }
+
+export const deleteCartItemHandlerV2 = async (req: Request, res: Response) => {
+    const { user } = req.body;
+    const { product_id } = req.body;
+    const response = await Service.deleteCartItemServiceV2(user, product_id);
+    return res.status(response.status).send(response.data);
+}

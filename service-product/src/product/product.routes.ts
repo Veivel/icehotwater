@@ -11,6 +11,7 @@ router.get('/:id', validate(Validation.getProductByIdSchema), Handler.getProduct
 router.post('/many', validate(Validation.getManyProductDatasByIdSchema), Handler.getManyProductDatasByIdHandler);
 router.get('/category/:category_id', validate(Validation.getProductByCategorySchema), Handler.getProductByCategoryHandler);
 router.post('', verifyJWTProduct, validate(Validation.createProductSchema), Handler.createProductHandler);
+router.post('/v2', verifyJWTProduct, validate(Validation.createProductSchemaV2), Handler.createProductHandlerV2);
 router.post('/category', verifyJWTProduct, validate(Validation.createCategorySchema), Handler.createCategoryHandler);
 router.put('/:id', verifyJWTProduct, validate(Validation.editProductSchema), Handler.editProductHandler);
 router.put('/category/:category_id', verifyJWTProduct, validate(Validation.editCategorySchema), Handler.editCategoryHandler);

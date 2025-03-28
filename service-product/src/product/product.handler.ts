@@ -30,6 +30,12 @@ export const createProductHandler = async (req: Request, res: Response) => {
     return res.status(response.status).send(response.data);
 }
 
+export const createProductHandlerV2 = async (req: Request, res: Response) => {
+    const { name, description, price, quantity_available, category_id } = req.body;
+    const response = await Service.createProductServiceV2(name, description, price, quantity_available, category_id);
+    return res.status(response.status).send(response.data);
+}
+
 export const getAllCategoryHandler = async (req: Request, res: Response) => {
     const response = await Service.getAllCategoriesService();
     return res.status(response.status).send(response.data);

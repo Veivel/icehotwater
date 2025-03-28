@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.get('/', verifyJWT, Handler.getAllUserWishlistHandler);
 router.get('/:id', verifyJWT, validate(Validation.getWishlistByIdSchema), Handler.getWishlistByIdHandler);
+router.get('/v2/:id', verifyJWT, validate(Validation.getWishlistByIdSchema), Handler.getWishlistByIdHandlerV2);
 router.post('/', verifyJWT, validate(Validation.createWishlistSchema), Handler.createWishlistHandler);
 router.put('/:id', verifyJWT, validate(Validation.updateWishlistSchema), Handler.updateWishlistHandler);
 router.delete('/remove', verifyJWT, validate(Validation.removeProductFromWishlistSchema), Handler.removeProductFromWishlistHandler);
