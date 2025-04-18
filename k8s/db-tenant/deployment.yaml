@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-db
+  name: tenant-db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth-db
+      app: tenant-db
   template:
     metadata:
       labels:
-        app: auth-db
+        app: tenant-db
     spec:
       containers:
         - name: postgres
@@ -19,24 +19,24 @@ spec:
             - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:
-                  name: auth-config
+                  name: tenant-config
                   key: DB_NAME
             - name: POSTGRES_USER
               valueFrom:
                 configMapKeyRef:
-                  name: auth-config
+                  name: tenant-config
                   key: DB_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: auth-secrets
+                  name: tenant-secrets
                   key: DB_PASSWORD
           ports:
             - containerPort: 5432
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: db-data
+            - mountPath: /var/lib/postgresql/tenant-data
+              name: tenant-db-data
       volumes:
-        - name: db-data
+        - name: tenant-db-data
           persistentVolumeClaim:
-            claimName: auth-db-volume-claim
+            claimName: tenant-db-volume-claim
