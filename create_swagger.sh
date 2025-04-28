@@ -1,3 +1,5 @@
+# for development purposes only
+
 npm i swagger-ui-express && npm i --save-dev @types/swagger-ui-express swagger-autogen
 cp ../service-auth/src/swagger.ts ./src/swagger.ts
 cp ../service-auth/Dockerfile ./Dockerfile

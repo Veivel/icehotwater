@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: product
-          image: product-service:1.0
+          image: veivel/product-service:1.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
