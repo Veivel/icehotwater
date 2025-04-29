@@ -3,6 +3,11 @@
 # need 2 vCPUs for master
 # dont use kops plzzzz
 
+### dont forget to edit /etc/containerd/config.toml
+# Ubuntu 22.04 uses cgroups v2 by default, which may conflict with Kubernetes/containerd configurations. Check:
+# bash
+# stat -fc %T /sys/fs/cgroup/  # Should show "cgroup2fs" for v2
+# cat /etc/containerd/config.toml | grep SystemdCgroup
 
 sudo apt-get update
 sudo apt-get install
@@ -52,8 +57,10 @@ kubeadm join .......
 
 
 ##### SETUP NETWORKING
-
-# https://kubernetes.io/docs/concepts/cluster-administration/networking/
 # https://github.com/techiescamp/kubeadm-scripts/blob/main/scripts/master.sh
 
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+
+## todo
+?
+https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd-systemd
