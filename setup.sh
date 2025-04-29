@@ -1,39 +1,31 @@
 ##### ISSUES
 # security: need INBOUND TCP!!!!
 # need 2 vCPUs for master
-# dont use kops plzzzz
-
-### dont forget to edit /etc/containerd/config.toml
-# Ubuntu 22.04 uses cgroups v2 by default, which may conflict with Kubernetes/containerd configurations. Check:
-# bash
-# stat -fc %T /sys/fs/cgroup/  # Should show "cgroup2fs" for v2
-# cat /etc/containerd/config.toml | grep SystemdCgroup
+# dont use kops plz
+# please run with root (sudo -i), not ubuntu
 
 sudo apt-get update
 sudo apt-get install
 
 ##### DOCKER
+# https://docs.docker.com/engine/install/
 
-# Add Docker's official GPG key:
 sudo apt-get install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-# Add the repository to Apt sources:
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
-
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-docker ps -A
+docker ps -a
 
 ##### KUBERNETES INSTALL
+# this is before kubeadm
 
 sudo apt-get update
-# apt-transport-https may be a dummy package; if so, you can skip that package
 sudo apt-get install -y apt-transport-https ca-certificates curl gpg
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
@@ -44,23 +36,67 @@ sudo systemctl enable --now kubelet
 
 ##### KUBERNETES INIT
 # https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
-
-# 1. re-enable cri sock in /etc/containerd/config.toml OR use another engine
-# 2. RUN: sudo systemctl restart containerd
-
-# for control plane
-kubeadm init --pod-network-cidr=192.168.0.0/16
-# don't forget to run the "finishing" script
-
-# for kubelet
-kubeadm join .......
-
-
-##### SETUP NETWORKING
 # https://github.com/techiescamp/kubeadm-scripts/blob/main/scripts/master.sh
+
+# FOR CONTROL PLANE ONLY
+** please take containerd-config.toml and apply it to /etc/containerd/config.toml
+sudo systemctl restart containerd kubelet
+
+kubeadm init --pod-network-cidr=192.168.0.0/16
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+export KUBECONFIG=/etc/kubernetes/admin.conf
 
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 
-## todo
-?
-https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd-systemd
+# FOR KUBELET ONLY
+kubeadm join ...
+
+##### OTHERS; master node(?)
+
+# disable swap (should be disabled)
+sudo swapoff -a
+sudo sed -i '/ swap / s/^/#/' /etc/fstab
+
+# cni stuffs
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+sudo modprobe overlay br_netfilter
+
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+sudo sysctl --system
+
+# containerd (should already be configured)
+sudo mkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml
+# Under [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]:
+# 
+sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml
+# Under [plugins."io.containerd.grpc.v1.cri".containerd]:
+sudo sed -i 's|sandbox_image = .*|sandbox_image = "registry.k8s.io/pause:3.9"|' /etc/containerd/config.toml
+
+sudo systemctl restart containerd
+sudo systemctl restart kubelet
+# dont forget to curl the IP of the worker node's host.
+
+# ONCE EVERYTHING IS WORKING
+
+# add metrics server
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+kubectl edit deploy metrics-server -n kube-system
+# write the following under spec.template.spec.containers.args
+```
+        command:
+        - /metrics-server
+        - --kubelet-insecure-tls
+        - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+```
+
