@@ -1,4 +1,3 @@
-// Modified getAllProductsService.ts
 import { InternalServerErrorResponse } from "@src/shared/commons/patterns";
 import { getAllProductsByTenantId } from "../dao/getAllProductsByTenantId.dao";
 
