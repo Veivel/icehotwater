@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import * as Service from './services';
 
 export const getAllProductsHandler = async (req: Request, res: Response) => {
-    const response = await Service.getAllProductsService();
+    const { page, size } = req.pagination; // Access pagination params from middleware
+    const response = await Service.getAllProductsService(page, size);
     return res.status(response.status).send(response.data);
 }
 
