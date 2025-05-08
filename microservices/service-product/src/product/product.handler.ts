@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import * as Service from './services';
 
 export const getAllProductsHandler = async (req: Request, res: Response) => {
-    const response = await Service.getAllProductsService();
+    const { page_number, page_size } = req.pagination; // Access pagination params from middleware
+    const response = await Service.getAllProductsService(page_number, page_size);
     return res.status(response.status).send(response.data);
 }
 
@@ -19,8 +20,9 @@ export const getProductByIdHandler = async (req: Request, res: Response) => {
 }
 
 export const getProductByCategoryHandler = async (req: Request, res: Response) => {
-    const { category_id } = req.params
-    const response = await Service.getProductByCategoryService(category_id);
+    const { category_id } = req.params;
+    const { page_number, page_size } = req.pagination; // Access pagination params from middleware
+    const response = await Service.getProductByCategoryService(category_id, page_number, page_size);
     return res.status(response.status).send(response.data);
 }
 
@@ -37,7 +39,8 @@ export const createProductHandlerV2 = async (req: Request, res: Response) => {
 }
 
 export const getAllCategoryHandler = async (req: Request, res: Response) => {
-    const response = await Service.getAllCategoriesService();
+    const { page_number, page_size } = req.pagination; // Access pagination params from middleware
+    const response = await Service.getAllCategoriesService(page_number, page_size);
     return res.status(response.status).send(response.data);
 }
 

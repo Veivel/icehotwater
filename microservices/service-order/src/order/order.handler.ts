@@ -3,9 +3,11 @@ import * as Service from "./services";
 
 export const getAllOrdersHandler = async (req: Request, res: Response) => {
     const { user } = req.body;
-    const response = await Service.getAllOrdersService(user);
+    const { page_number, page_size } = req.pagination;
+    const response = await Service.getAllOrdersService(user, page_number, page_size);
     return res.status(response.status).send(response.data);
 }
+
 
 export const getOrderDetailHandler = async (req: Request, res: Response) => {
     const { user } = req.body;

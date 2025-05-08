@@ -3,7 +3,9 @@ import { getAllUserWishlist } from "../dao/getAllUserWishlist.dao";
 import { User } from "@src/shared/types";
 
 export const getAllUserWishlistService = async (
-    user: User
+    user: User,
+    page = 1,
+    size = 10
 ) => {
     try {
         const SERVER_TENANT_ID = process.env.TENANT_ID;
@@ -15,13 +17,17 @@ export const getAllUserWishlistService = async (
             return new NotFoundResponse('User ID is missing').generate();
         }
 
-        const wishlists = await getAllUserWishlist(SERVER_TENANT_ID, user.id);
+        const offset = (page - 1) * size;
+        const result = await getAllUserWishlist(SERVER_TENANT_ID, user.id, offset, size);
 
         return {
-            data: wishlists,
+            data: {
+                wishlists: result.data,
+                pagination: result.pagination
+            },
             status: 200,
         };
     } catch (err: any) {
         return new InternalServerErrorResponse(err).generate();
     }
-}
+};

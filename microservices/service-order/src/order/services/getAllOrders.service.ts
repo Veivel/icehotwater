@@ -3,7 +3,9 @@ import { getAllOrders } from "../dao/getAllOrders.dao";
 import { User } from "@src/shared/types";
 
 export const getAllOrdersService = async (
-    user: User
+    user: User,
+    page = 1,
+    size = 10
 ) => {
     try {
         const SERVER_TENANT_ID = process.env.TENANT_ID;
@@ -15,13 +17,17 @@ export const getAllOrdersService = async (
             return new InternalServerErrorResponse("User ID is not defined").generate();
         }
 
-        const orders = await getAllOrders(SERVER_TENANT_ID, user.id);
+        const offset = (page - 1) * size;
+        const result = await getAllOrders(SERVER_TENANT_ID, user.id, offset, size);
 
         return {
-            data: orders,
+            data: {
+                orders: result.data,
+                pagination: result.pagination
+            },
             status: 200,
-        }
+        };
     } catch (err: any) {
         return new InternalServerErrorResponse(err).generate();
     }
-}
+};
