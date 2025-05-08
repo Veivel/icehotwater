@@ -7,7 +7,6 @@ metadata:
 spec:
   parentRefs:
   - name: marketplace-gateway
-    namespace: default
   rules:
     - matches:
       - path:
