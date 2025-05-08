@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 
 export interface PaginationParams {
-    page: number;
-    size: number;
+    page_number: number;
+    page_size: number;
     offset: number;
 }
 
@@ -20,16 +20,16 @@ export const paginate = (
     next: NextFunction
 ) => {
     // Get page and size from query parameters
-    const page = parseInt(req.query.page as string) || 1;
-    const size = Math.min(parseInt(req.query.size as string) || 10, 100);
+    const page_number = parseInt(req.query.page_number as string) || 1;
+    const page_size = Math.min(parseInt(req.query.page_size as string) || 10, 100);
 
     // Calculate offset (0-based)
-    const offset = (page - 1) * size;
+    const offset = (page_number - 1) * page_size;
 
     // Add pagination parameters to request object
     req.pagination = {
-        page,
-        size,
+        page_number,
+        page_size,
         offset
     };
 

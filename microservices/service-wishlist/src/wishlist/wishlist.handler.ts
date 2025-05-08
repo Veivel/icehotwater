@@ -3,8 +3,8 @@ import * as Service from './services';
 
 export const getAllUserWishlistHandler = async (req: Request, res: Response) => {
     const { user } = req.body;
-    const { page, size } = req.pagination; // Access pagination params from middleware
-    const response = await Service.getAllUserWishlistService(user, page, size);
+    const { page_number, page_size } = req.pagination; // Access pagination params from middleware
+    const response = await Service.getAllUserWishlistService(user, page_number, page_size);
     return res.status(response.status).send(response.data);
 }
 

@@ -36,8 +36,8 @@ export const getAllUserWishlist = async (
         data: result,
         pagination: {
             total,
-            page: Math.floor(offset / limit) + 1,
-            size: limit,
+            page_number: Math.floor(offset / limit) + 1,
+            page_size: limit,
             totalPages: Math.ceil(total / limit)
         }
     };
