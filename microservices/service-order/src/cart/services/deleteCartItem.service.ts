@@ -1,6 +1,7 @@
 import { InternalServerErrorResponse, NotFoundResponse } from "@src/shared/commons/patterns";
 import { User } from "@src/shared/types";
 import { deleteCartItemByProductId } from "../dao/deleteCartItemByProductId.dao";
+import {deleteCacheByPattern} from "@src/shared/utils/redis";
 
 export const deleteCartItemService = async (
     user: User,
@@ -17,7 +18,7 @@ export const deleteCartItemService = async (
         }
 
         const cart = await deleteCartItemByProductId(SERVER_TENANT_ID, user.id, product_id);
-
+        await deleteCacheByPattern('/api/cart*');
         return {
             data: cart,
             status: 200,

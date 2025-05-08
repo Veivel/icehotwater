@@ -4,6 +4,7 @@ import { getUserByUsername } from '../dao/getUserByUsername.dao';
 
 import { InternalServerErrorResponse, NotFoundResponse } from "@src/shared/commons/patterns"
 import { User } from '@db/schema/users';
+import {deleteCache, deleteCacheByPattern} from "@src/shared/utils/redis";
 
 export const loginService = async (
     username: string,
@@ -35,7 +36,7 @@ export const loginService = async (
         const token = jwt.sign(payload, secret, {
             expiresIn: "1d",
         })
-
+        await deleteCacheByPattern('/api/auth/verify*');
         return {
             data: {
                 token,

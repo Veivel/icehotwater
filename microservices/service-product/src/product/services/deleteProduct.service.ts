@@ -1,5 +1,6 @@
 import { InternalServerErrorResponse } from "@src/shared/commons/patterns"
 import { deleteProductById } from "../dao/deleteProductById.dao";
+import {deleteCacheByPattern} from "@src/shared/utils/redis";
 
 export const deleteProductService = async (
     id: string,
@@ -11,6 +12,9 @@ export const deleteProductService = async (
         }
 
         const product = await deleteProductById(SERVER_TENANT_ID, id);
+
+        // Invalidate product caches
+        await deleteCacheByPattern('/api/product*');
 
         return {
             data: {

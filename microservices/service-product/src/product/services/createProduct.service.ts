@@ -1,6 +1,7 @@
 import { NewProduct } from "@db/schema/products";
 import { InternalServerErrorResponse } from "@src/shared/commons/patterns";
 import { createNewProduct } from "../dao/createNewProduct.dao";
+import { deleteCacheByPattern } from "@src/shared/utils/redis"; // Import cache function
 
 export const createProductService = async (
     name: string,
@@ -27,6 +28,9 @@ export const createProductService = async (
         }
 
         const newProduct = await createNewProduct(productData)
+
+        // Invalidate product caches
+        await deleteCacheByPattern('/api/product*');
 
         return {
             data: newProduct,
