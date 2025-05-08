@@ -9,3 +9,7 @@ Repository for team Ice Hot Water's capstone project
 ├── microservices   // for the main codebase
 └── workload        // for the workload design & load testing
 ```
+
+### Getting Started
+
+See [microservices/README.md](microservices/README) for more.

@@ -1,6 +1,6 @@
 # aaw-marketplace
 
-Givarrel Veivel's Assignment 01 for AAW class.
+Marketplace repository for AAW class.
 
 ## List of Microservices
 
@@ -37,21 +37,14 @@ To test out each service's API, feel free to import the API collection `./Insomn
 # Clone the repository
 git clone <repository-url>
 
-# Start each Service with Docker Compose
-cd <service> && docker compose up -d
-```
-
-## Alternative Flow
-
-```bash
-# Clone the repository
-git clone <repository-url>
-
 # Start all 5 services at once
 docker compose up
+
+# Alternatively, you can start each Service manually
+cd <service> && docker compose up -d # repeat 4x times
 ```
 
-## Local Development Setup
+## Quick Start without Docker
 
 ```bash
 # You need to repeat the steps below for each service
@@ -60,18 +53,22 @@ cd <service>
 # Install dependencies
 pnpm install
 
-# Setup database
-pnpm run generate # Generate migrations
-
-pnpm run migrate # Run migrations
-
 # If you are having issues with migrate, run the database first
 # don't forget to docker compose down
 docker compose up db-<service>
 
 # Start development server
 pnpm dev
+```
 
+## Migrations
+
+```sh
+# remember to first boot up the database
+
+pnpm run generate # Generate migrations
+
+pnpm run migrate # Run migrations
 ```
 
 ## Environment Variables
