@@ -12,31 +12,31 @@ spec:
     - matches:
       - path:
           type: PathPrefix
-          value: /api/auth
+          value: /auth
       backendRefs:
       - name: auth-service
         kind: Service
-        port: 80
+        port: 8080
     - matches:
       - path:
           type: PathPrefix
-          value: /api/order
+          value: /order
       backendRefs:
       - name: order-service
         kind: Service
-        port: 80
+        port: 8080
     - matches:
       - path:
           type: PathPrefix
-          value: /api/product
+          value: /product
       backendRefs:
       - name: product-service
         kind: Service
-        port: 80
+        port: 8080
     - matches:
       - path:
           type: PathPrefix
-          value: /api/tenant
+          value: /tenant
       backendRefs:
       - name: tenant-service
         kind: Service
@@ -44,7 +44,7 @@ spec:
     - matches:
       - path:
           type: PathPrefix
-          value: /api/wishlist
+          value: /wishlist
       backendRefs:
       - name: wishlist-service
         kind: Service
