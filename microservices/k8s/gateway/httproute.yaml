@@ -7,7 +7,7 @@ metadata:
 spec:
   parentRefs:
   - name: marketplace-gateway
-    namespace: kong
+    namespace: default
   rules:
     - matches:
       - path:
@@ -15,7 +15,6 @@ spec:
           value: /api/auth
       backendRefs:
       - name: auth-service
-        namespace: default
         kind: Service
         port: 80
     - matches:
@@ -24,7 +23,6 @@ spec:
           value: /api/order
       backendRefs:
       - name: order-service
-        namespace: default
         kind: Service
         port: 80
     - matches:
@@ -33,7 +31,6 @@ spec:
           value: /api/product
       backendRefs:
       - name: product-service
-        namespace: default
         kind: Service
         port: 80
     - matches:
@@ -42,7 +39,6 @@ spec:
           value: /api/tenant
       backendRefs:
       - name: tenant-service
-        namespace: default
         kind: Service
         port: 80
     - matches:
@@ -51,6 +47,5 @@ spec:
           value: /api/wishlist
       backendRefs:
       - name: wishlist-service
-        namespace: default
         kind: Service
         port: 80
