@@ -3,8 +3,7 @@ import * as Service from './services';
 
 export const getAllCartItemsHandler = async (req: Request, res: Response) => {
     const { user } = req.body;
-    const { page, size } = req.pagination; // Access pagination params from middleware
-    const response = await Service.getAllCartItemsService(user, page, size);
+    const response = await Service.getAllCartItemsService(user);
     return res.status(response.status).send(response.data);
 }
 
