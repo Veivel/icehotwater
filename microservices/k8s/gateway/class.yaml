@@ -3,4 +3,4 @@ kind: GatewayClass
 metadata:
   name: marketplace-gateway
 spec:
-  controllerName: marketplace-gateway-controller
+  controllerName: example.com/marketplace-gateway-controller
