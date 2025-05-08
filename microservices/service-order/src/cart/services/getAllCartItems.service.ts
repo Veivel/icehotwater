@@ -4,6 +4,8 @@ import { User } from "@src/shared/types";
 
 export const getAllCartItemsService = async (
     user: User,
+    page = 1,
+    size = 10
 ) => {
     try {
         const SERVER_TENANT_ID = process.env.TENANT_ID;
@@ -15,14 +17,18 @@ export const getAllCartItemsService = async (
             return new NotFoundResponse('User not found').generate();
         }
 
-        const items = await getAllCartItems(SERVER_TENANT_ID, user.id);
+        const offset = (page - 1) * size;
+        const result = await getAllCartItems(SERVER_TENANT_ID, user.id, offset, size);
 
         return {
-            data: items,
+            data: {
+                items: result.data,
+                pagination: result.pagination
+            },
             status: 200,
-        }
+        };
     } catch (err: any) {
-        console.log("new error, pls see:", err)
+        console.log("new error, pls see:", err);
         return new InternalServerErrorResponse(err).generate();
     }
-}
+};
