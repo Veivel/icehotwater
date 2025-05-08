@@ -6,7 +6,7 @@ spec:
   parentRefs:
   - name: marketplace-gateway
   hostnames:
-  - "example.com"
+  - "34.232.30.223"
   rules:
     - matches:
       - path:

@@ -3,4 +3,4 @@ kind: GatewayClass
 metadata:
   name: marketplace-gateway
 spec:
-  controllerName: example.com/marketplace-gateway-controller
+  controllerName: 34.232.30.223/marketplace-gateway-controller
