@@ -1,0 +1,46 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: marketplace-gateway
+spec:
+  controllerName: marketplace-gateway-controller
+  listeners:
+  - name: http
+    protocol: HTTP
+    port: 80
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /auth
+    backendRefs:
+    - name: auth-service
+      port: 80
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /order
+    backendRefs:
+    - name: order-service
+      port: 80
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /product
+    backendRefs:
+    - name: product-service
+      port: 80
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /tenant
+    backendRefs:
+    - name: tenant-service
+      port: 80
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /wishlist
+    backendRefs:
+    - name: wishlist-service
+      port: 80
