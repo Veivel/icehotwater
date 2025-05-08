@@ -2,5 +2,7 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
   name: marketplace-gateway-class
+  annotations:
+    konghq.com/gatewayclass-unmanaged: 'true'
 spec:
-  controllerName: "34.232.30.223/marketplace-gateway-controller"
+  controllerName: konghq.com/kic-gateway-controller
