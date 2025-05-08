@@ -2,42 +2,42 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: marketplace-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  # annotations:
+  #  nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: nginx
+  # ingressClassName: nginx
   rules:
   - http:
       paths:
-      - path: /api/auth(/|$)(.*)
+      - path: /auth(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: auth-service
             port:
               number: 80
-      - path: /api/product(/|$)(.*)
+      - path: /product(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: product-service
             port:
               number: 80
-      - path: /api/order(/|$)(.*)
+      - path: /order(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: order-service
             port:
               number: 80
-      - path: /api/wishlist(/|$)(.*)
+      - path: /wishlist(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: wishlist-service
             port:
               number: 80
-      - path: /api/tenant(/|$)(.*)
+      - path: /tenant(/|$)(.*)
         pathType: Prefix
         backend:
           service:
