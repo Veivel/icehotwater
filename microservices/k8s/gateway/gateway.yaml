@@ -3,7 +3,7 @@ kind: Gateway
 metadata:
   name: marketplace-gateway
 spec:
-  gatewayClassName: marketplace-class
+  gatewayClassName: marketplace-gateway-class
   listeners:
   - name: http
     protocol: HTTP

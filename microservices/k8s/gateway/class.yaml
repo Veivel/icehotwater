@@ -1,6 +1,6 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
-  name: marketplace-gateway
+  name: marketplace-gateway-class
 spec:
   controllerName: "34.232.30.223/marketplace-gateway-controller"
