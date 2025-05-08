@@ -1,11 +1,11 @@
 import express from "express";
-import { validate, verifyJWT } from "@src/shared/middleware";
+import {paginate, validate, verifyJWT} from "@src/shared/middleware";
 import * as Validation from './validation';
 import * as Handler from './wishlist.handler';
 
 const router = express.Router();
 
-router.get('/', verifyJWT, Handler.getAllUserWishlistHandler);
+router.get('/', verifyJWT, paginate, Handler.getAllUserWishlistHandler);
 router.get('/:id', verifyJWT, validate(Validation.getWishlistByIdSchema), Handler.getWishlistByIdHandler);
 router.get('/v2/:id', verifyJWT, validate(Validation.getWishlistByIdSchema), Handler.getWishlistByIdHandlerV2);
 router.post('/', verifyJWT, validate(Validation.createWishlistSchema), Handler.createWishlistHandler);
