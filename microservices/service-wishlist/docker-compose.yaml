@@ -18,6 +18,9 @@ services:
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=marketplace
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - CACHE_TTL=3600
     depends_on:
       - db-wishlist
 
