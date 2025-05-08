@@ -2,7 +2,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: marketplace-ingress
-  # annotations:
+  annotations:
+    k44sServiceType: HTTP
+    k44sSslEnabled: "True"
   #  nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   # ingressClassName: nginx
