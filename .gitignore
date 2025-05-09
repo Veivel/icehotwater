@@ -5,6 +5,7 @@ npm-debug.log
 .env
 .DS_Store
 dist
+.idea
 
 notes.md
 testing.md
