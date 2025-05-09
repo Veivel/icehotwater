@@ -1,4 +1,4 @@
-import { pgTable, primaryKey, uuid, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { pgTable, primaryKey, uuid, text, timestamp, varchar, index } from 'drizzle-orm/pg-core';
 
 export const users = pgTable('users', {
     id: uuid('id').defaultRandom().unique(),
@@ -12,7 +12,12 @@ export const users = pgTable('users', {
     created_at: timestamp('created_at', { withTimezone: true }).defaultNow(),
     updated_at: timestamp('updated_at', { withTimezone: true }).defaultNow(),
 }, (table) => ({
-    pk: primaryKey({ columns: [table.tenant_id, table.username, table.email] })
+    pk: primaryKey({ columns: [table.tenant_id, table.username, table.email] }),
+    // Add indexes
+    tenantIdx: index('idx_users_tenant_id').on(table.tenant_id),
+    emailIdx: index('idx_users_email').on(table.email),
+    usernameIdx: index('idx_users_username').on(table.username),
+    tenantUsernameIdx: index('idx_users_tenant_username').on(table.tenant_id, table.username),
 }));
 
 export type User = typeof users.$inferSelect;

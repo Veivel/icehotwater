@@ -1,4 +1,4 @@
-import { foreignKey, integer, pgTable, uuid, varchar } from "drizzle-orm/pg-core";
+import { foreignKey, integer, pgTable, uuid, varchar, index } from "drizzle-orm/pg-core";
 import { categories } from "./categories";
 
 export const products = pgTable("products", {
@@ -15,7 +15,12 @@ export const products = pgTable("products", {
       columns: [table.tenant_id, table.category_id],
       foreignColumns: [categories.tenant_id, categories.id],
       name: 'products_category_id_fkey',
-    })
+    }),
+    // Add indexes
+    tenantIdx: index('idx_products_tenant_id').on(table.tenant_id),
+    categoryIdx: index('idx_products_category_id').on(table.category_id),
+    nameIdx: index('idx_products_name').on(table.name),
+    tenantCategoryIdx: index('idx_products_tenant_category').on(table.tenant_id, table.category_id),
   }
 });
 
