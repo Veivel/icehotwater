@@ -25,12 +25,16 @@ ENV NODE_ENV production
 
 WORKDIR /marketplace
 
-COPY --from=builder /marketplace/dist ./dist
-COPY --from=builder /marketplace/package.json ./package.json
+COPY --from=builder /marketplace .
+# COPY --from=builder /marketplace/dist ./dist
+# COPY --from=builder /marketplace/package.json ./package.json
 COPY --from=builder /marketplace/swagger.json ./dist/swagger.json
+# COPY ./drizzle.config.ts .
+# COPY ./entrypoint.sh .
+
 
 RUN npm install --only=production --omit=dev
 
 EXPOSE 8000
 
-CMD ["node", "dist/src/server.js"]
+CMD ["./entrypoint.sh"]

@@ -1,14 +1,14 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 import { closePool } from './db';
 
 dotenv.config();
 
-import express, { Express, Request, Response } from "express";
-import cors from "cors";
+import express, { Express, Request, Response } from 'express';
+import cors from 'cors';
 
-import express_prom_bundle from "express-prom-bundle";
+import express_prom_bundle from 'express-prom-bundle';
 
-import routes from "./user/user.routes"
+import routes from './user/user.routes';
 
 const app: Express = express();
 
@@ -24,8 +24,8 @@ const metricsMiddleware = express_prom_bundle({
   includeUp: true,
   customLabels: { project_name: 'marketplace-auth-service' },
   promClient: {
-    collectDefaultMetrics: {}
-  }
+    collectDefaultMetrics: {},
+  },
 });
 
 // Middleware
@@ -33,25 +33,25 @@ app.use(metricsMiddleware);
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/auth', routes)
+app.use('/api/auth', routes);
 
 // Health check endpoint
 app.get('/health', (_, res) => {
-    res.status(200).json({ status: 'healthy' });
+  res.status(200).json({ status: 'healthy' });
 });
 
 // Root endpoint
 app.get('/', (_, res) => {
   res.status(200).json({
     message: 'Marketplace Auth Service',
-    version: '1.0.0'
+    version: '1.0.0',
   });
 });
 
 app.use((req: Request, res: Response) => {
   res.status(404).json({
     message: 'Not Found',
-    path: req.path
+    path: req.path,
   });
 });
 
@@ -74,7 +74,9 @@ const shutdown = async () => {
 
   // Force close after 10 seconds
   setTimeout(() => {
-    console.error('Could not close connections in time, forcefully shutting down');
+    console.error(
+      'Could not close connections in time, forcefully shutting down'
+    );
     process.exit(1);
   }, 10000);
 };
