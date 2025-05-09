@@ -4,7 +4,6 @@
 #      LOG_LEVEL: trace
 #      dump_config: true
 
-apiVersion: gateway.networking.k8s.io/v1
 gateway:
   admin:
     http:
