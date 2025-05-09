@@ -10,7 +10,6 @@ export const getProductByCategory = async (
     offset = 0,
     limit = 10
 ): Promise<PaginationResult<Product>> => {
-    // Get products with pagination
     const result = await db
         .select()
         .from(schema.products)
@@ -20,6 +19,7 @@ export const getProductByCategory = async (
                 eq(schema.products.category_id, category_id)
             )
         )
+        .orderBy(schema.products.name)
         .limit(limit)
         .offset(offset);
 

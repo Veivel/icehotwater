@@ -12,5 +12,6 @@ export const getUserByUsername = async (username: string, tenant_id: string) => 
                 eq(schema.users.tenant_id, tenant_id)
             )
         )
+        .limit(1)
     return result[0];
 }

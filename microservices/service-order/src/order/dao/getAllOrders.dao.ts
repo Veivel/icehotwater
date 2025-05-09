@@ -1,5 +1,5 @@
 import { db } from "@src/db";
-import { and, eq, sql } from "drizzle-orm";
+import { and, eq, sql, desc } from "drizzle-orm";
 import * as schema from "@db/schema/order";
 import { PaginationResult } from "@src/shared/types/pagination";
 import { Order } from "@db/schema/order";
@@ -10,7 +10,6 @@ export const getAllOrders = async (
     offset = 0,
     limit = 10
 ): Promise<PaginationResult<Order>> => {
-    // Get orders with pagination
     const result = await db
         .select()
         .from(schema.order)
@@ -18,6 +17,7 @@ export const getAllOrders = async (
             eq(schema.order.tenant_id, tenant_id),
             eq(schema.order.user_id, user_id),
         ))
+        .orderBy(desc(schema.order.order_date))
         .limit(limit)
         .offset(offset);
 
