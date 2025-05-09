@@ -2,6 +2,7 @@ import { InternalServerErrorResponse } from "@src/shared/commons/patterns";
 import { editCartDataById } from "../dao/editCartDataById.dao";
 import { deleteCartItem } from "../dao/deleteCartItem.dao";
 import { User } from "@src/shared/types";
+import {deleteCacheByPattern} from "@src/shared/utils/redis";
 
 export const editCartItemService = async (
     user: User,
@@ -27,7 +28,7 @@ export const editCartItemService = async (
                 quantity,
             })
         }
-
+        await deleteCacheByPattern('/api/cart*');
         return {
             data: cart,
             status: 200,

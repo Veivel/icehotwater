@@ -2,6 +2,7 @@ import { NewCart } from "@db/schema/cart";
 import { InternalServerErrorResponse, NotFoundResponse } from "@src/shared/commons/patterns";
 import { addItemToCart } from "../dao/addItemToCart.dao";
 import { User } from "@src/shared/types";
+import {deleteCacheByPattern} from "@src/shared/utils/redis";
 
 export const addItemToCartService = async (
     user: User,
@@ -26,6 +27,7 @@ export const addItemToCartService = async (
         }
 
         const item = await addItemToCart(cartData);
+        await deleteCacheByPattern('/api/cart*');
 
         return {
             data: {

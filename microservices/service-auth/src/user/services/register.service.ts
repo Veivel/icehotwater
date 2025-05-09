@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt'
 import { NewUser } from '@db/schema/users';
 import { insertNewUser } from '../dao/insertNewUser.dao';
 import { InternalServerErrorResponse } from '@src/shared/commons/patterns';
+import {deleteCacheByPattern} from "@src/shared/utils/redis";
 
 export const registerService = async (
     username: string,
@@ -30,7 +31,7 @@ export const registerService = async (
         }
         console.log("userData===>",userData)
         const newUser = await insertNewUser(userData)
-
+        await deleteCacheByPattern('/api/auth/verify*');
         return {
             data: newUser,
             status: 201
