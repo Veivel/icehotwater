@@ -3,7 +3,7 @@ kind: HTTPRoute
 metadata:
   name: marketplace-httproute
   annotations:
-    konghq.com/strip-path: 'false'
+    konghq.com/strip-path: 'true'
 spec:
   parentRefs:
   - name: marketplace-gateway
