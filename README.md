@@ -13,4 +13,4 @@ Team members: Kausar, James, Veivel
 
 ### Getting Started
 
-See [microservices/README.md](microservices/README) for more.
+See [microservices/README.md](microservices/README.md) for more.
