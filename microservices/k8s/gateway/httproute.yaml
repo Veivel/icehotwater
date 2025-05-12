@@ -3,7 +3,7 @@ kind: HTTPRoute
 metadata:
   name: marketplace-httproute
   annotations:
-    konghq.com/strip-path: 'true'
+    konghq.com/strip-path: 'false'
 spec:
   parentRefs:
   - name: marketplace-gateway
@@ -12,7 +12,7 @@ spec:
     - matches:
       - path:
           type: PathPrefix
-          value: /auth
+          value: /service-auth
       backendRefs:
       - name: auth-service
         kind: Service
@@ -20,7 +20,7 @@ spec:
     - matches:
       - path:
           type: PathPrefix
-          value: /order
+          value: /service-order
       backendRefs:
       - name: order-service
         kind: Service
@@ -28,15 +28,7 @@ spec:
     - matches:
       - path:
           type: PathPrefix
-          value: /cart
-      backendRefs:
-      - name: order-service
-        kind: Service
-        port: 80
-    - matches:
-      - path:
-          type: PathPrefix
-          value: /product
+          value: /service-product
       backendRefs:
       - name: product-service
         kind: Service
@@ -44,7 +36,7 @@ spec:
     - matches:
       - path:
           type: PathPrefix
-          value: /tenant
+          value: /service-tenant
       backendRefs:
       - name: tenant-service
         kind: Service
@@ -52,7 +44,7 @@ spec:
     - matches:
       - path:
           type: PathPrefix
-          value: /wishlist
+          value: /service-wishlist
       backendRefs:
       - name: wishlist-service
         kind: Service
