@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: wishlist
-          image: veivel/wishlist-service:1.0
+          image: veivel/wishlist-service:1.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000

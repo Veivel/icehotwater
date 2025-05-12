@@ -28,6 +28,14 @@ spec:
     - matches:
       - path:
           type: PathPrefix
+          value: /cart
+      backendRefs:
+      - name: order-service
+        kind: Service
+        port: 80
+    - matches:
+      - path:
+          type: PathPrefix
           value: /product
       backendRefs:
       - name: product-service

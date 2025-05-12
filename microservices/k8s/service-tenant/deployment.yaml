@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: tenant
-          image: veivel/tenant-service:1.0
+          image: veivel/tenant-service:1.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
