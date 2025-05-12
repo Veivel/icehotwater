@@ -5,7 +5,7 @@ metadata:
 data:
   PORT: "8000"
   NODE_ENV: "production"
-  DB_HOST: "product-db-service.default.svc.cluster.local"
+  DB_HOST: "marketplace-db.cbiwmcuk8t98.us-east-1.rds.amazonaws.com"
   DB_PORT: "5432"
   DB_NAME: "marketplace"
   DB_USER: "postgres"
