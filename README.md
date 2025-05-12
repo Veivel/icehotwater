@@ -1,6 +1,7 @@
 # icehotwater
 
-Repository for team Ice Hot Water's capstone project
+Repository for team Ice Hot Water's capstone project.
+Team members: Kausar, James, Veivel
 
 ### Project Structure
 ```sh
