@@ -138,6 +138,11 @@ kubectl get httproute && kubectl get gatewayclass && kubectl get gateway
 helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
 # Deploy a Helm Release named "kubernetes-dashboard" using the kubernetes-dashboard chart
 helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
+
+# run proxy to expose dashboard. make sure the port (8081) is allowed in security group
+kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8081:443 --address='0.0.0.0'
+# create bearer token to authenticate. make sure to apply kube yamls from microservices/k8s/dashboard
+kubectl create token dashboard-user -n kubernetes-dashboard
 ```
 
 #### add metrics server
