@@ -1,6 +1,7 @@
 # icehotwater
 
-Repository for team Ice Hot Water's capstone project
+Repository for team Ice Hot Water's capstone project.
+Team members: Kausar, James, Veivel
 
 ### Project Structure
 ```sh
@@ -12,4 +13,4 @@ Repository for team Ice Hot Water's capstone project
 
 ### Getting Started
 
-See [microservices/README.md](microservices/README) for more.
+See [microservices/README.md](microservices/README.md) for more.
