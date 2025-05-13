@@ -18,6 +18,7 @@
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "drizzle-kit": "^0.20.14",
     "drizzle-orm": "^0.30.2",
     "express": "^4.18.3",
     "express-prom-bundle": "^7.0.0",
@@ -25,6 +26,7 @@
     "pg": "^8.11.3",
     "prom-client": "^15.1.2",
     "swagger-ui-express": "^5.0.1",
+    "tsx": "^4.7.1",
     "uuid": "^9.0.1",
     "zod": "^3.22.4"
   },
@@ -37,13 +39,19 @@
     "@types/pg": "^8.11.2",
     "@types/swagger-ui-express": "^4.1.8",
     "@types/uuid": "^9.0.8",
-    "drizzle-kit": "^0.20.14",
     "nodemon": "^3.1.0",
     "swagger-autogen": "^2.23.7",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.8",
     "tsconfig-paths": "^4.2.0",
-    "tsx": "^4.7.1",
     "typescript": "^5.3.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@scarf/scarf",
+      "bcrypt",
+      "es5-ext",
+      "esbuild"
+    ]
   }
 }
