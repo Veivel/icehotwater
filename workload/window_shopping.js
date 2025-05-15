@@ -4,17 +4,37 @@ const testType = __ENV.TEST_TYPE || 'smoke';
 export let options={thresholds:{http_req_failed:['rate<0.01'],http_req_duration:['p(95)<1000']}};
 switch(testType){
   case'smoke':options.stages=[{duration:'10s',target:5},{duration:'20s',target:5},{duration:'10s',target:0}];break;
-  case'average':options.stages=[{duration:'1m',target:20},{duration:'3m',target:20},{duration:'30s',target:0}];break;
-  case'stress':options.stages=[{duration:'2m',target:50},{duration:'2m',target:100},{duration:'1m',target:100},{duration:'30s',target:0}];break;
+  case'average':
+    options.stages = [
+      {duration:'1m',target:20},
+      {duration:'3m',target:20},
+      {duration:'30s',target:0}
+    ]
+    ;break;
+  case'stress':
+    options.stages = [
+      {duration:'2m',target:50},
+      {duration:'2m',target:100},
+      {duration:'1m',target:100},
+      {duration:'30s',target:0}];
+      break;
+  case 'extreme':
+    options.stages = [
+      { duration: '2m', target: 500 },  // Ramp up to 500 users over 2 minutes
+      { duration: '2m', target: 1000 }, // Ramp up to 1000 users over the next 2 minutes
+      { duration: '3m', target: 1000 }, // Hold at 1000 users for 3 minutes
+      { duration: '2m', target: 0 },    // Ramp down to 0 users over 2 minutes
+    ];
+    break;
 }
 function exponentialDelay(rate){const U=Math.random();return -Math.log(1-U)/rate;}
 
-const AUTH = 'http://localhost:8000/api/auth';
-const PRODUCT = 'http://localhost:8002/api/product';
-const CART = 'http://localhost:8001/api/cart';
+const AUTH = 'http://34.232.30.223:80/service-auth/api/auth';
+const PRODUCT = 'http://34.232.30.223:80/service-product/api/product';
+const CART = 'http://34.232.30.223:80/service-order/api/cart';
 
 function login() {
-  const creds = JSON.stringify({ username: 'testuser', password: 'testpass' });
+  const creds = JSON.stringify({ username: 'Testuser1', password: 'Testpass1' });
   const res = http.post(AUTH, creds, { headers: { 'Content-Type': 'application/json' } });
   check(res, { 'login 200': r => r.status === 200 });
   const token = res.json('token');
