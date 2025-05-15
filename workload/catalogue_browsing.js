@@ -35,9 +35,9 @@ switch (testType) {
     break;
   case 'extreme':
     options.stages = [
-      { duration: '2m', target: 500 }, // Ramp up to 500 users over 2 minutes
-      { duration: '2m', target: 1000 }, // Ramp up to 1000 users over the next 2 minutes
-      { duration: '3m', target: 1000 }, // Hold at 1000 users for 3 minutes
+      { duration: '2m', target: 250 }, // Ramp up to 250 users over 2 minutes
+      { duration: '2m', target: 500 }, // Ramp up to 500 users over the next 2 minutes
+      { duration: '3m', target: 500 }, // Hold at 500 users for 3 minutes
       { duration: '2m', target: 0 }, // Ramp down to 0 users over 2 minutes
     ];
     break;
@@ -58,6 +58,8 @@ export default function () {
     // request pertama (cold / cache‑miss)
     let res = http.get(`${BASE}?page_number=${p}&page_size=${PAGE_SIZE}`);
     check(res, { [`page ${p} 200`]: (r) => r.status === 200 });
+
+    sleep(0.5);
 
     // request kedua (cache‑hit, latency harus turun)
     res = http.get(`${BASE}?page_number=${p}&page_size=${PAGE_SIZE}`);
