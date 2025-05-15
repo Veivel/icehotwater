@@ -30,6 +30,6 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 5
             limits:
-              cpu: 600m
+              cpu: 500m
             requests:
               cpu: 400m
