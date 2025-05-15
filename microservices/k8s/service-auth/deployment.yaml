@@ -29,8 +29,7 @@ spec:
               port: 8000
             initialDelaySeconds: 10
             periodSeconds: 5
-          resources:
             limits:
-              cpu: 400m
+              cpu: 600m
             requests:
-              cpu: 300m
+              cpu: 400m
