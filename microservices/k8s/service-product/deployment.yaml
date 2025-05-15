@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: product
-          image: veivel/product-service:1.0
+          image: veivel/product-service:1.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
@@ -31,6 +31,6 @@ spec:
             periodSeconds: 5
           resources:
             limits:
-              cpu: 250m
+              cpu: 650m
             requests:
-              cpu: 150m
+              cpu: 500m
