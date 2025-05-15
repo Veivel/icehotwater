@@ -162,4 +162,9 @@ cd ~/code
 git clone https://github.com/Veivel/icehotwater.git
 cd ~/code/icehotwater/microservices
 kubectl apply -R -f k8s/
+```
 
+#### add new node
+```
+sudo kubeadm token create --print-join-command
+```
